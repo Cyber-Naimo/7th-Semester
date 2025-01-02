@@ -1,0 +1,167 @@
+// Base Page
+public class BasePage
+{
+    public static IWebDriver driver;
+    public static ExtentReports extentReports;
+    public static ExtentTest Test;
+
+    #region Methods
+    // Initialize Selenium WebDriver based on the browser type
+    public static void SeleniumInit(string browser)
+    {
+        if (browser == "Chrome")
+        {
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.AddArguments("--start-maximized", "--incognito","--headless");
+            driver = new ChromeDriver(chromeOptions);
+        }
+        else if (browser == "FireFox")
+        {
+            FirefoxOptions firefoxOptions = new FirefoxOptions();
+            driver = new FirefoxDriver(firefoxOptions);
+        }
+        else if (browser == "Microsoft Edge")
+        {
+            EdgeOptions options = new EdgeOptions();
+            driver = new EdgeDriver(options);
+        }
+    }
+
+    // Write text into input field
+    public void Write(By by, string data)
+    {
+        try
+        {
+            driver.FindElement(by).SendKeys(data);
+            TakeScreenshots(Status.Pass, data + " Write Successfully");
+        }
+        catch (Exception ex)
+        {
+            TakeScreenshots(Status.Fail, "Failed to Write data: " + ex.Message);
+        }
+    }
+
+    // Click on a button or link
+    public void Click(By by)
+    {
+        try
+        {
+            driver.FindElement(by).Click();
+            TakeScreenshots(Status.Pass, "Clicked Successfully");
+        }
+        catch (Exception ex)
+        {
+            TakeScreenshots(Status.Fail, "Failed to Click: " + ex.Message);
+        }
+    }
+	
+	 public static string GetText(By by) => driver.FindElement(by).Text;
+     public static void Url(string url) => driver.Url = url;
+
+
+    // Create Extent Reports
+    public static void CreateReport(string path)
+    {
+        extentReports = new ExtentReports();
+        var sparkReport = new ExtentSparkReporter(path);
+        extentReports.AttachReporter(sparkReport);
+    }
+
+    // Take a screenshot and log the step
+    public static void TakeScreenshots(Status status, string stepDetails)
+    {
+        string path = @"C:\YourPath\images" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+        Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+        System.IO.File.WriteAllBytes(path, screenshot.AsByteArray);
+        Test.Log(status, stepDetails, MediaEntityBuilder.CreateScreenCaptureFromPath(path).Build());
+    }
+    #endregion
+}
+
+// Execution Page
+[TestClass]
+public class ExecutionPage
+{
+    public TestContext TestContext { get; set; }	
+
+    // Assembly Initialize (Runs once for the entire test run)
+    [AssemblyInitialize]
+    public static void AssemblyInitialize(TestContext context)
+    {
+        string resultFile = @"C:\YourPath\Execution_log_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".html";
+        BasePage.CreateReport(resultFile);
+    }
+
+    // Assembly Cleanup (Runs once after the entire test run)
+	[AssemblyCleanup]
+    public static void AssemblyCleanup() => BasePage.extentReports.Flush();	
+
+    // Test Initialize (Runs before each test)
+    [TestInitialize]
+    public void TestInitialize()
+    {
+        BasePage.SeleniumInit(ConfigurationManager.AppSettings["Browser"]);
+        BasePage.Test = BasePage.extentReports.CreateTest(TestContext.TestName);
+    }
+
+    // Test Cleanup (Runs after each test)
+    [TestCleanup]
+    public void TestCleanup()
+    {
+        BasePage.driver.Quit(); // Close the driver after each test
+    }
+}
+
+Below are the Optional to remember above two class code should write assetise on paper
+
+// Login Page
+public class LoginPage
+{
+    #region Locators
+    By header_Sign_in_link = By.LinkText("Sign In");
+    By email_tag = By.Id("email");
+    By pass_tag = By.Id("pass"); // Assuming this is the password input locator
+    By signin_btn = By.Name("send");
+    By successMessageLocator = By.XPath("//div[contains(text(), 'You saved the account information.')]");
+    #endregion
+
+    #region Methods
+    // Perform login action
+    public void Login(string url, string email, string password)
+    {
+        BasePage.Test = BasePage.Test.CreateNode("LoginPage");
+        BasePage.Url(url);
+        BasePage.Click(header_Sign_in_link);
+        BasePage.Write(email_tag, email);
+        BasePage.Write(pass_tag, password);
+        BasePage.Click(signin_btn);
+    }
+    #endregion
+}
+
+[TestMethod]
+[DataSource("Microsoft.VisualStudio.TestTools.DataSource.XML", "Data.xml", "Valid_Login_Test", DataAccessMethod.Sequential)]
+public void Valid_Login_Test_Case()
+{
+    string url = TestContext.DataRow["url"].ToString();
+    string username = TestContext.DataRow["username"].ToString();
+    string password = TestContext.DataRow["password"].ToString();
+
+    LoginPage loginPage = new LoginPage();
+    loginPage.Login(url, username, password);
+
+    string Actual_Result = "Welcome to Adactin Group of Hotels";
+    string Expected_Result = BasePage.GetText(By.ClassName("welcome_menu"));
+
+    Assert.AreEqual(Actual_Result, Expected_Result);
+}
+
+Data.xml
+<?xml version="1.0" encoding="utf-8" ?>
+<Tests>
+	<Valid_Login_Test_Case>
+		<url>https://magento.softwaretestingboard.com</url>
+		<email>remain-dear@x8xnajkk.mailosaur.net</email>
+		<password>Na1matKhan</password>
+	</Valid_Login_Test_Case>
+<Test>

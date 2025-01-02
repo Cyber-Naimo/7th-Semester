@@ -1,0 +1,120 @@
+1 six sigma - 8  wastes
+
+Talent:
+talent ka waste ke bande ki skills ke mutabiq na use kia jaye
+
+Inventory:
+extra cheez lena jese certificate ya print waghera
+
+Motion:
+agar process me logon ko extra move karna hota hai jese 3 se char 4 chakar lagane parh rahe hai uper se neche matlab
+human ko buhat chalna parh rha to ye waste of motion hai.
+
+Waiting:
+jese team ke bache assign karde review karne ke liye ke unko pata hai ke review time par nahi karke dega yani jo kaam
+15 mint me hona hai usme ziada time lag raha
+
+Transportation:
+product or material ka waste yani ke jese environment ka setup har jaga alag karna ya jese apke pas ane se pehle kisi aur se 
+guzar kar aye
+
+Defect:
+customer defect ke paise nahi deta
+
+Overproduction:
+user ko extra feature bana kar dena
+ya jese sprint me 5 se ziada user stories bana kar dena jabke bola sirf 5 ka hi gaya ho
+
+overprocessing / goldplatting:
+feature zarorat se ziada acha bana kar dena
+
+
+
+Fishbone Diagram from seven quality analysis tool by ishikawa for paper.
+
+Risk: Risk is the probabilty of loss and gain bcz of factors not in our control.
+
+Risk Exposure = impact into chance of occurence
+R.E= P x L
+
+risk can not be ended bcz of not in our control
+
+we set owner, origin and domain to know that its project, product or management or bussiness risk.
+than the occurence of risk like the risk of failing in exams are twice a year.
+
+defect leakage: build ke duran kitne defects customer ne find kiye
+
+we found 95 bugs and customer found 5 bugs 
+so defect leakage is 5 percent.
+the standard for defect leakage should not be greater than 5 %
+
+
+create mind map of software testing
+
+product owner: 
+scrum master: 
+developers: 
+
+product backlog:
+total list of requirements and other stuff
+
+sprint backlog:
+a chuck from the product backlog for a specific sprint
+
+sprint should be less than one month
+
+daily scrum of 15 minutes.
+
+increment:
+sum of usable sprint to the customer
+
+review before increment.
+
+
+
+retrospective review include only product manager, scrum master, developer also know as scrum team.
+
+planning time should be 2 hour per week
+
+review time should be 1 hour per weeek
+
+
+big requirements are called epic are divided to feature further divided to user stories
+
+epic -> feature -> user stories
+
+
+Exploit = The good thing is already happening, so you jump on it to maximize the benefit.
+Enhance = You’re trying to make the good thing happen by taking proactive steps.
+
+Q1: A key team member is likely to leave the project mid-way, which could cause delays in completing critical tasks.
+Your Answer: Negative | Mitigate | Train a separate programmer for this situation.
+Correct Answer: ✔ Correct!
+Risk Type: Negative (a delay is harmful).
+Response Plan: Mitigate (by training another programmer, you reduce the impact of the team member leaving).
+Q2: The software project may finish earlier than expected, which could allow the team to work on additional features.
+Your Answer: Positive | Enhance | Work on other tasks.
+Correct Answer: ✔ Partially Correct!
+Risk Type: Positive (finishing early is beneficial).
+Response Plan: Exploit instead of Enhance.
+Exploit means taking full advantage of the situation (e.g., prioritizing important features).
+Enhance is more about improving the likelihood of a positive event occurring, but in this case, the risk is already happening.
+Q3: There is a chance of a power outage during a critical phase of deployment.
+Your Answer: Negative | Mitigate | Create a backup power supply.
+Correct Answer: ✔ Correct!
+Risk Type: Negative (a power outage is harmful).
+Response Plan: Mitigate (by implementing a backup power supply, you reduce the impact).
+Q4: The project’s testing phase identifies an opportunity to improve the system's performance with a minor code tweak.
+Your Answer: Positive | Enhance | Train or fix.
+Correct Answer: ❌ Needs Revision!
+Risk Type: Positive (improving performance is beneficial).
+Response Plan: Exploit instead of Enhance.
+Since this opportunity already exists, you should take full advantage of it (implement the code tweak).
+Enhance would apply if you wanted to make it more likely to find such improvements.
+Q5: A vendor delivering a critical system component may increase their charges unexpectedly, which could exceed the budget.
+Your Answer: Negative | Avoid.
+Correct Answer: ❌ Needs Revision!
+Risk Type: Negative (budget overruns are harmful).
+Response Plan: Transfer instead of Avoid.
+You can transfer the financial risk by adding a penalty clause in the contract or negotiating fixed rates with the vendor.
+Avoid means eliminating the risk entirely, which may not always be feasible here.
